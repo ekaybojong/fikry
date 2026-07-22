@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio TKJ - MUHAMMAD FIKRY R.</title>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #0a0a12;
+            --card-bg: #121324;
+            --neon-blue: #00f3ff;
+            --neon-pink: #ff007f;
+            --neon-purple: #9d00ff;
+            --text-color: #ffffff;
+            --text-secondary: #a0a0c0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        /* --- NAVBAR --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background: rgba(10, 10, 18, 0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--neon-pink);
+            text-shadow: 0 0 10px var(--neon-pink);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8%;
+            padding-top: 80px;
+            background: radial-gradient(circle at 10% 20%, rgba(157, 0, 255, 0.15) 0%, transparent 40%),
+                        radial-gradient(circle at 90% 80%, rgba(0, 243, 255, 0.15) 0%, transparent 40%);
+        }
+
+        .hero-text h3 {
+            font-size: 1.2rem;
+            color: var(--neon-pink);
+            letter-spacing: 2px;
+        }
+
+        .hero-text h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin: 10px 0;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+
+        .hero-text h2 {
+            font-size: 1.5rem;
+            color: var(--neon-blue);
+            margin-bottom: 15px;
+            text-shadow: 0 0 8px var(--neon-blue);
+        }
+
+        .hero-text p {
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        /* Foto dengan Animasi Neon Glow */
+        .hero-img {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-img img {
+            width: 280px;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 50%;
+            z-index: 2;
+            border: 3px solid var(--neon-blue);
+        }
+
+        .hero-img::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-pink), var(--neon-purple));
+            animation: spinGlow 4s linear infinite;
+            filter: blur(15px);
+            z-index: 1;
+        }
+
+        @keyframes spinGlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Tombol Neon */
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: transparent;
+            color: var(--neon-blue);
+            border: 2px solid var(--neon-blue);
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 0 10px var(--neon-blue);
+            transition: 0.3s ease;
+        }
+
+        .btn:hover {
+            background: var(--neon-blue);
+            color: #000;
+            box-shadow: 0 0 25px var(--neon-blue);
+            transform: translateY(-3px);
+        }
+
+        /* --- SECTION TITLE --- */
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        section {
+            padding: 80px 8%;
+        }
+
+        /* --- SKILLS SECTION --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card i {
+            font-size: 2.5rem;
+            color: var(--neon-pink);
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px var(--neon-pink);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.4);
+        }
+
+        /* --- PROJECTS SECTION --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            transition: 0.3s;
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .project-info {
+            padding: 20px;
+        }
+
+        .project-info h3 {
+            color: var(--neon-blue);
+            margin-bottom: 10px;
+        }
+
+        .project-info p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .project-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+        }
+
+        /* --- MEDIA SOSIAL & CONTACT --- */
+        .contact-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .contact-info {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            background: var(--card-bg);
+            padding: 12px 20px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .info-item i {
+            color: var(--neon-blue);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .social-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-size: 1.3rem;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.3s;
+        }
+
+        .social-btn:hover {
+            background: var(--neon-pink);
+            color: #fff;
+            box-shadow: 0 0 15px var(--neon-pink);
+            transform: translateY(-5px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        /* Responsive Layout untuk HP */
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column-reverse;
+                text-align: center;
+                justify-content: center;
+                gap: 40px;
+            }
+            .hero-text h1 { font-size: 2.2rem; }
+            .hero-img, .hero-img::before { width: 220px; height: 220px; }
+            .hero-img img { width: 200px; height: 200px; }
+            .nav-links { display: none; } /* Bisa ditambahkan hamburger menu jika perlu */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGASI -->
+    <nav>
+        <div class="logo">FIKRY.TKJ</div>
+        <ul class="nav-links">
+            <li><a href="#home">Beranda</a></li>
+            <li><a href="#about">Tentang</a></li>
+            <li><a href="#skills">Keahlian</a></li>
+            <li><a href="#projects">Proyek</a></li>
+            <li><a href="#contact">Kontak</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
+        <div class="hero-text">
+            <h3>HALO, SAYA</h3>
+            <h1>MUHAMMAD FIKRY R.</h1>
+            <h2>Spesialis TKJ & Network Technician</h2>
+            <p>Siswa / Lulusan Teknik Komputer dan Jaringan yang berfokus pada Pengaturan Jaringan (Networking), Server, Hardware, dan Infrastruktur IT.</p>
+            <a href="#contact" class="btn">Hubungi Saya</a>
+        </div>
+        
+        <!-- FOTO PROFIL DENGAN EFEK NEON RING -->
+        <div class="hero-img">
+            <!-- GANTI URL FOTO DI BAWAH INI DENGAN LINK FOTO KAMU -->
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=500&auto=format&fit=crop" alt="Foto Muhammad Fikry R.">
+        </div>
+    </section>
+
+    <!-- TENTANG SAYA -->
+    <section id="about">
+        <h2 class="section-title">TENTANG SAYA</h2>
+        <div style="background: var(--card-bg); padding: 30px; border-radius: 15px; border-left: 4px solid var(--neon-blue); max-width: 800px; margin: 0 auto; line-height: 1.8;">
+            <p>Saya adalah seorang praktisi di bidang <strong>Teknik Komputer dan Jaringan (TKJ)</strong>. Memiliki ketertarikan mendalam dalam konfigurasi router (MikroTik/Cisco), merakit PC, instalasi jaringan lokal (LAN/WAN), hingga pengelolaan sistem operasi server berbasis Linux dan Windows.</p>
+        </div>
+    </section>
+
+    <!-- KEAHLIAN TKJ -->
+    <section id="skills">
+        <h2 class="section-title">KEAHLIAN TKJ</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <i class="fa-solid fa-network-wired"></i>
+                <h3>Jaringan & Routing</h3>
+                <p>Konfigurasi Router MikroTik, Cisco, Subnetting, VLAN, dan Routing Protokol.</p>
+            </div>
+            <div class="skill-card">
+                <i class="fa-solid fa-server"></i>
+                <h3>Administrasi Server</h3>
+                <p>Pengelolaan Server Linux (Debian/Ubuntu), Web Server, DNS, DHCP, dan FTP.</p>
+            </div>
+            <div class="skill-card">
+                <i class="fa-solid fa-microchip"></i>
+                <h3>Hardware & Troubleshooting</h3>
+                <p>Perakitan PC, Maintenance Komputer, Diagnosa Kerusakan Hardware & Software.</p>
+            </div>
+            <div class="skill-card">
+                <i class="fa-solid fa-cable-car"></i>
+                <h3>Instalasi Kabel & FO</h3>
+                <p>Crimping Kabel UTP (Straight/Cross), Splicing Fiber Optic, dan Pengujian LAN Tester.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROYEK / PORTOFOLIO -->
+    <section id="projects">
+        <h2 class="section-title">PROYEK TERBARU</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?q=80&w=500&auto=format&fit=crop" alt="MikroTik Setup">
+                <div class="project-info">
+                    <h3>Setting Hotspot MikroTik</h3>
+                    <p>Membangun jaringan Wi-Fi Hotspot menggunakan RouterBoard MikroTik lengkap dengan Sistem Voucher dan Bandwidth Management.</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=500&auto=format&fit=crop" alt="Linux Server">
+                <div class="project-info">
+                    <h3>Konfigurasi Debian Server</h3>
+                    <p>Instalasi dan konfigurasi Web Server (Apache/Nginx), Database MySQL, serta Domain Name System (DNS) pada OS Debian.</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <img src="https://images.unsplash.com/photo-1562976540-1502c2145186?q=80&w=500&auto=format&fit=crop" alt="Instalasi LAN">
+                <div class="project-info">
+                    <h3>Infrastruktur Jaringan LAN</h3>
+                    <p>Perancangan dan pengabelan jaringan komputer laboratorium sekolah menggunakan kabel UTP Cat6 dan Switch Manageable.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- KONTAK & SOSIAL MEDIA -->
+    <section id="contact">
+        <h2 class="section-title">HUBUNGI SAYA</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="info-item">
+                    <i class="fa-solid fa-phone"></i>
+                    <span>082213184742</span>
+                </div>
+                <div class="info-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span>ekigamteng884@gmail.com</span>
+                </div>
+            </div>
+
+            <p style="color: var(--text-secondary); margin-top: 10px;">Temukan saya di Media Sosial:</p>
+
+            <div class="social-links">
+                <a href="https://www.tiktok.com/@ekyorangbogor?_r=1&_t=ZS-98EZD4VlpdS" target="_blank" class="social-btn" title="TikTok">
+                    <i class="fa-brands fa-tiktok"></i>
+                </a>
+                <a href="https://www.instagram.com/m.fikryrezkitama?igsh=aGY4eHd1dmxodGJs" target="_blank" class="social-btn" title="Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://youtube.com/@m.fikry11eki69?si=Kq1rEqnSV mechanical-Kq1rEqnSV" target="_blank" class="social-btn" title="YouTube">
+                    <i class="fa-brands fa-youtube"></i>
+                </a>
+                <a href="https://www.facebook.com/share/1Bsty4e822/" target="_blank" class="social-btn" title="Facebook">
+                    <i class="fa-brands fa-facebook"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 MUHAMMAD FIKRY R. | Portofolio Teknik Komputer dan Jaringan</p>
+    </footer>
+
+</body>
+</html>
