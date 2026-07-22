@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio TKJ | MUHAMMAD FIKRY R.</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* === CYBERPUNK NEON VARIABLES === */
+        :root {
+            --bg-dark: #05050a;
+            --bg-card: rgba(15, 18, 30, 0.75);
+            --neon-cyan: #00f3ff;
+            --neon-magenta: #ff0055;
+            --neon-green: #00ff66;
+            --neon-yellow: #ffcc00;
+            --neon-purple: #9d00ff;
+            --text-main: #ffffff;
+            --text-sub: #a0aec0;
+            --glow-color: #00f3ff;
+            --glass-border: rgba(0, 243, 255, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Rajdhani', 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Canvas Background */
+        #bgCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Scanline Overlay */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+            background-size: 100% 3px, 6px 100%;
+            opacity: 0.6;
+        }
+
+        /* === TYPOGRAPHY & UTILS === */
+        h1, h2, h3, .brand-logo {
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .text-cyan { color: var(--neon-cyan); }
+        .text-magenta { color: var(--neon-magenta); }
+        .text-green { color: var(--neon-green); }
+
+        .glow-cyan { text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan); }
+        .glow-magenta { text-shadow: 0 0 10px var(--neon-magenta), 0 0 20px var(--neon-magenta); }
+
+        /* === NAVBAR === */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 18px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(5, 5, 10, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 1000;
+        }
+
+        .brand-logo {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-logo i {
+            color: var(--neon-cyan);
+            animation: pulseGlow 2s infinite alternate;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-link {
+            color: var(--text-sub);
+            text-decoration: none;
+            font-size: 1.05rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 8px var(--neon-cyan);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: var(--neon-cyan);
+            box-shadow: 0 0 10px var(--neon-cyan);
+            transition: 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* === HERO SECTION === */
+        .hero-section {
+            min-height: 100vh;
+            padding: 120px 8% 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px;
+            position: relative;
+        }
+
+        .hero-text {
+            max-width: 650px;
+        }
+
+        .cyber-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: rgba(0, 243, 255, 0.08);
+            border: 1px solid var(--neon-cyan);
+            border-radius: 20px;
+            color: var(--neon-cyan);
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .hero-title {
+            font-size: 3.2rem;
+            line-height: 1.15;
+            margin-bottom: 15px;
+            font-weight: 900;
+        }
+
+        .hero-title span {
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .typewriter-box {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--neon-green);
+            min-height: 40px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .typewriter-cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.4rem;
+            background-color: var(--neon-green);
+            animation: blink 0.8s infinite;
+        }
+
+        .hero-desc {
+            color: var(--text-sub);
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 35px;
+        }
+
+        /* HERO PROFILE IMAGE & LIVE CUSTOMIZER */
+        .profile-stage {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-frame-wrapper {
+            position: relative;
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .neon-ring-bg {
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, var(--glow-color), var(--neon-magenta), var(--neon-purple), var(--glow-color));
+            animation: rotateFrame 6s linear infinite;
+            filter: blur(12px);
+            opacity: 0.85;
+        }
+
+        .neon-border-circle {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 3px dashed var(--glow-color);
+            animation: rotateFrameAnti 12s linear infinite;
+        }
+
+        .profile-img-container {
+            position: relative;
+            width: 290px;
+            height: 290px;
+            border-radius: 50%;
+            overflow: hidden;
+            z-index: 2;
+            border: 4px solid var(--glow-color);
+            box-shadow: 0 0 25px var(--glow-color);
+            background-color: #111;
+        }
+
+        .profile-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        .quick-edit-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            z-index: 10;
+            background: var(--neon-magenta);
+            color: #fff;
+            border: none;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 0 15px var(--neon-magenta);
+            transition: 0.3s;
+        }
+
+        .quick-edit-btn:hover {
+            transform: scale(1.15) rotate(15deg);
+            background: var(--neon-cyan);
+            color: #000;
+            box-shadow: 0 0 20px var(--neon-cyan);
+        }
+
+        /* === BUTTONS === */
+        .btn-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .cyber-btn {
+            padding: 14px 32px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: None;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-cyan {
+            background: transparent;
+            color: var(--neon-cyan);
+            border: 2px solid var(--neon-cyan);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.25);
+        }
+
+        .btn-cyan:hover {
+            background: var(--neon-cyan);
+            color: #000;
+            box-shadow: 0 0 30px var(--neon-cyan);
+            transform: translateY(-3px);
+        }
+
+        .btn-magenta {
+            background: transparent;
+            color: var(--neon-magenta);
+            border: 2px solid var(--neon-magenta);
+            box-shadow: 0 0 15px rgba(255, 0, 85, 0.25);
+        }
+
+        .btn-magenta:hover {
+            background: var(--neon-magenta);
+            color: #fff;
+            box-shadow: 0 0 30px var(--neon-magenta);
+            transform: translateY(-3px);
+        }
+
+        /* === SECTIONS GENERAL === */
+        section {
+            padding: 90px 8%;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .section-header p {
+            color: var(--text-sub);
+            font-size: 1.1rem;
+        }
+
+        .cyber-line {
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+            margin: 15px auto 0;
+            border-radius: 2px;
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        /* === PHOTO STUDIO / EDIT FOTO SECTION === */
+        .editor-container {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 35px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .editor-preview-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .preview-circle-stage {
+            position: relative;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            padding: 8px;
+            background: rgba(0,0,0,0.6);
+        }
+
+        .preview-neon-glow {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: var(--glow-color);
+            filter: blur(15px);
+            opacity: 0.7;
+        }
+
+        .preview-img-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--glow-color);
+            z-index: 2;
+        }
+
+        .preview-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .controls-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .control-group label {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-main);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .control-group label span {
+            color: var(--neon-cyan);
+        }
+
+        .cyber-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: #1a2035;
+            outline: none;
+            border: 1px solid var(--glass-border);
+        }
+
+        .cyber-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--neon-cyan);
+            cursor: pointer;
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .color-pickers {
+            display: flex;
+            gap: 15px;
+            margin-top: 5px;
+        }
+
+        .color-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: 0.2s;
+        }
+
+        .color-dot:hover, .color-dot.active {
+            transform: scale(1.2);
+            border-color: #fff;
+            box-shadow: 0 0 12px currentColor;
+        }
+
+        .file-upload-input {
+            display: none;
+        }
+
+        /* === SKILLS / KEAHLIAN TKJ === */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .skill-card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 30px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 243, 255, 0.15);
+            border-color: var(--neon-cyan);
+        }
+
+        .skill-card:hover::before {
+            opacity: 1;
+        }
+
+        .skill-icon {
+            font-size: 2.8rem;
+            color: var(--neon-cyan);
+            margin-bottom: 20px;
+            display: inline-block;
+            transition: 0.3s;
+        }
+
+        .skill-card:hover .skill-icon {
+            color: var(--neon-magenta);
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .skill-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+
+        .skill-card p {
+            color: var(--text-sub);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .skill-progress-bg {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .skill-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-green));
+            box-shadow: 0 0 10px var(--neon-cyan);
+            border-radius: 4px;
+        }
+
+        /* === PROJECTS / TKJ WORK SHOWCASE === */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: 0.4s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--neon-magenta);
+            box-shadow: 0 15px 35px rgba(255, 0, 85, 0.2);
+        }
+
+        .project-img-box {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            background: #111;
+        }
+
+        .project-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .project-card:hover .project-img-box img {
+            transform: scale(1.1);
+        }
+
+        .project-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(5, 5, 10, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .project-content {
+            padding: 22px;
+        }
+
+        .project-tag {
+            font-size: 0.8rem;
+            color: var(--neon-cyan);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .project-content h3 {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+        }
+
+        .project-content p {
+            color: var(--text-sub);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* === CONTACT & SOCIAL MEDIA === */
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .contact-cards-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-info-card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            padding: 22px 28px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s;
+        }
+
+        .contact-info-card:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+            transform: translateX(10px);
+        }
+
+        .contact-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 10px;
+            background: rgba(0, 243, 255, 0.1);
+            border: 1px solid var(--neon-cyan);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            color: var(--neon-cyan);
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+        }
+
+        .socials-grid-box {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .social-link-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            padding: 20px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-link-btn i {
+            font-size: 1.8rem;
+            transition: 0.3s;
+        }
+
+        /* Specific Social Neon Hover Styles */
+        .social-link-btn.tiktok:hover {
+            border-color: #ff0050;
+            box-shadow: 0 0 20px #ff0050;
+            color: #ff0050;
+        }
+        .social-link-btn.instagram:hover {
+            border-color: #e1306c;
+            box-shadow: 0 0 20px #e1306c;
+            color: #e1306c;
+        }
+        .social-link-btn.youtube:hover {
+            border-color: #ff0000;
+            box-shadow: 0 0 20px #ff0000;
+            color: #ff0000;
+        }
+        .social-link-btn.facebook:hover {
+            border-color: #1877f2;
+            box-shadow: 0 0 20px #1877f2;
+            color: #1877f2;
+        }
+
+        /* === FOOTER === */
+        footer {
+            border-top: 1px solid var(--glass-border);
+            padding: 30px 8%;
+            text-align: center;
+            background: rgba(5, 5, 10, 0.95);
+            color: var(--text-sub);
+            font-size: 0.95rem;
+        }
+
+        footer p span {
+            color: var(--neon-cyan);
+            font-weight: 700;
+        }
+
+        /* === KEYFRAME ANIMATIONS === */
+        @keyframes rotateFrame {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes rotateFrameAnti {
+            0% { transform: rotate(360deg); }
+            100% { transform: rotate(0deg); }
+        }
+        @keyframes pulseGlow {
+            0% { filter: drop-shadow(0 0 2px var(--neon-cyan)); }
+            100% { filter: drop-shadow(0 0 12px var(--neon-cyan)); }
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 992px) {
+            .hero-section {
+                flex-direction: column-reverse;
+                text-align: center;
+                padding-top: 140px;
+            }
+            .hero-text {
+                max-width: 100%;
+            }
+            .btn-group {
+                justify-content: center;
+            }
+            .editor-container {
+                grid-template-columns: 1fr;
+            }
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+            }
+            .nav-menu {
+                display: none; /* Can be expanded to mobile drawer */
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            .socials-grid-box {
+                grid-template-columns: 1fr;
+            }
+            .profile-frame-wrapper {
+                width: 260px;
+                height: 260px;
+            }
+            .profile-img-container {
+                width: 230px;
+                height: 230px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cyberpunk Background Animation Canvas -->
+    <canvas id="bgCanvas"></canvas>
+
+    <!-- Scanline CRT Overlay -->
+    <div class="scanlines"></div>
+
+    <!-- NAVBAR HEADER -->
+    <header>
+        <div class="brand-logo">
+            <i class="fa-solid fa-network-wired"></i> FIKRY<span>.TKJ</span>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="#home" class="nav-link active">Home</a></li>
+            <li><a href="#editor" class="nav-link">Studio Foto</a></li>
+            <li><a href="#skills" class="nav-link">Keahlian</a></li>
+            <li><a href="#projects" class="nav-link">Proyek TKJ</a></li>
+            <li><a href="#contact" class="nav-link">Kontak</a></li>
+        </ul>
+    </header>
+
+    <!-- MAIN HERO SECTION -->
+    <section class="hero-section" id="home">
+        <div class="hero-text">
+            <div class="cyber-badge">
+                <i class="fa-solid fa-microchip"></i> SPECIALIST NETWORK & HARDWARE
+            </div>
+            <h1 class="hero-title">
+                HALO, SAYA <br>
+                <span>MUHAMMAD FIKRY R.</span>
+            </h1>
+
+            <div class="typewriter-box">
+                <i class="fa-solid fa-terminal text-cyan"></i>
+                <span id="typewriter"></span>
+                <span class="typewriter-cursor"></span>
+            </div>
+
+            <p class="hero-desc">
+                Siswa / Praktisi <strong>Teknik Komputer dan Jaringan (TKJ)</strong> yang berdedikasi tinggi dalam konfigurasi infrastruktur jaringan (MikroTik/Cisco), pengelolaan Server Linux/Windows, perakitan hardware, serta perawatan sistem keamanan jaringan.
+            </p>
+
+            <div class="btn-group">
+                <a href="#contact" class="cyber-btn btn-cyan">
+                    <i class="fa-solid fa-paper-plane"></i> Hubungi Saya
+                </a>
+                <a href="#editor" class="cyber-btn btn-magenta">
+                    <i class="fa-solid fa-sliders"></i> Edit Foto Profil
+                </a>
+            </div>
+        </div>
+
+        <!-- HERO PROFILE PHOTO STAGE -->
+        <div class="profile-stage">
+            <div class="profile-frame-wrapper">
+                <div class="neon-ring-bg" id="heroNeonRing"></div>
+                <div class="neon-border-circle"></div>
+                <div class="profile-img-container" id="heroImgContainer">
+                    <!-- Default High-Tech Avatar Image -->
+                    <img id="mainProfileImg" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" alt="Foto Profil MUHAMMAD FIKRY R.">
+                </div>
+            </div>
+
+            <button class="quick-edit-btn" onclick="triggerPhotoUpload()" title="Unggah / Ganti Foto Langsung">
+                <i class="fa-solid fa-camera"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- PHOTO EDITOR STUDIO / LIVE CUSTOMIZER SECTION -->
+    <section id="editor">
+        <div class="section-header">
+            <h2>STUDIO <span>EDIT FOTO & NEON</span></h2>
+            <p>Atur foto profil kamu secara langsung, terapkan filter cyberpunk, dan ubah warna glow neon!</p>
+            <div class="cyber-line"></div>
+        </div>
+
+        <div class="editor-container">
+            <!-- Preview Box -->
+            <div class="editor-preview-box">
+                <div class="preview-circle-stage">
+                    <div class="preview-neon-glow" id="previewGlow"></div>
+                    <div class="preview-img-wrapper" id="previewImgWrapper">
+                        <img id="editorPreviewImg" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" alt="Preview Foto">
+                    </div>
+                </div>
+
+                <input type="file" id="photoInput" class="file-upload-input" accept="image/*">
+                
+                <button class="cyber-btn btn-cyan" onclick="triggerPhotoUpload()">
+                    <i class="fa-solid fa-upload"></i> Unggah Foto Baru
+                </button>
+            </div>
+
+            <!-- Controls Sliders -->
+            <div class="controls-grid">
+                <div class="control-group">
+                    <label>Pilih Warna Neon Glow:</label>
+                    <div class="color-pickers">
+                        <div class="color-dot active" style="background:#00f3ff; color:#00f3ff" onclick="setNeonColor('#00f3ff')"></div>
+                        <div class="color-dot" style="background:#ff0055; color:#ff0055" onclick="setNeonColor('#ff0055')"></div>
+                        <div class="color-dot" style="background:#00ff66; color:#00ff66" onclick="setNeonColor('#00ff66')"></div>
+                        <div class="color-dot" style="background:#ffcc00; color:#ffcc00" onclick="setNeonColor('#ffcc00')"></div>
+                        <div class="color-dot" style="background:#9d00ff; color:#9d00ff" onclick="setNeonColor('#9d00ff')"></div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>Kecerahan (Brightness): <span id="valBrightness">100%</span></label>
+                    <input type="range" id="sliderBrightness" class="cyber-slider" min="50" max="180" value="100">
+                </div>
+
+                <div class="control-group">
+                    <label>Kontras (Contrast): <span id="valContrast">100%</span></label>
+                    <input type="range" id="sliderContrast" class="cyber-slider" min="50" max="200" value="100">
+                </div>
+
+                <div class="control-group">
+                    <label>Saturasi Warna (Saturation): <span id="valSaturate">100%</span></label>
+                    <input type="range" id="sliderSaturate" class="cyber-slider" min="0" max="250" value="100">
+                </div>
+
+                <div class="control-group">
+                    <label>Zoom / Skala Foto: <span id="valZoom">100%</span></label>
+                    <input type="range" id="sliderZoom" class="cyber-slider" min="80" max="200" value="100">
+                </div>
+
+                <button class="cyber-btn btn-magenta" onclick="resetFilters()" style="margin-top: 10px;">
+                    <i class="fa-solid fa-rotate-left"></i> Reset Filter Normal
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS SECTION -->
+    <section id="skills">
+        <div class="section-header">
+            <h2>KEAHLIAN <span>TEKNIS TKJ</span></h2>
+            <p>Penguasaan perangkat keras, perangkat lunak jaringan, dan administrasi sistem.</p>
+            <div class="cyber-line"></div>
+        </div>
+
+        <div class="skills-grid">
+            <!-- Skill 1 -->
+            <div class="skill-card">
+                <i class="fa-solid fa-router skill-icon"></i>
+                <h3>MikroTik & Cisco Networking</h3>
+                <p>Mampu melakukan routing statis/dinamis (OSPF/BGP), VLAN, Bandwidth Management (Queue Tree/Simple Queue), Firewall Filter, serta NAT.</p>
+                <div class="skill-progress-bg"><div class="skill-progress-fill" style="width: 90%;"></div></div>
+            </div>
+
+            <!-- Skill 2 -->
+            <div class="skill-card">
+                <i class="fa-solid fa-network-wired skill-icon"></i>
+                <h3>Pengkabelan LAN & Fiber Optic</h3>
+                <p>Ahli dalam pembutan kabel UTP Straight/Cross, Splicing (Penyambungan) Fiber Optic, pengukuran OPM, serta troubleshooting struktur topologi.</p>
+                <div class="skill-progress-bg"><div class="skill-progress-fill" style="width: 95%;"></div></div>
+            </div>
+
+            <!-- Skill 3 -->
+            <div class="skill-card">
+                <i class="fa-solid fa-server skill-icon"></i>
+                <h3>Server Administration</h3>
+                <p>Konfigurasi Server Linux (Debian/Ubuntu) & Windows Server: DHCP, DNS (Bind9), Web Server (Apache/Nginx), FTP, Samba, dan SSH Security.</p>
+                <div class="skill-progress-bg"><div class="skill-progress-fill" style="width: 85%;"></div></div>
+            </div>
+
+            <!-- Skill 4 -->
+            <div class="skill-card">
+                <i class="fa-solid fa-screwdriver-wrench skill-icon"></i>
+                <h3>Hardware & Troubleshooting</h3>
+                <p>Perakitan PC Desktop, Diagnostik kerusakan komponen motherboard, RAM, Power Supply, Instalasi Sistem Operasi, dan Maintenance berkala.</p>
+                <div class="skill-progress-bg"><div class="skill-progress-fill" style="width: 92%;"></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS SHOWCASE SECTION -->
+    <section id="projects">
+        <div class="section-header">
+            <h2>PORTOFOLIO <span>PROYEK TKJ</span></h2>
+            <p>Dokumentasi simulasi jaringan, konfigurasi server, dan praktikum jaringan.</p>
+            <div class="cyber-line"></div>
+        </div>
+
+        <div class="projects-grid">
+            <!-- Project 1 -->
+            <div class="project-card">
+                <div class="project-img-box">
+                    <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=600&q=80" alt="Infrastruktur Router & Server">
+                    <div class="project-overlay">
+                        <span class="cyber-btn btn-cyan"><i class="fa-solid fa-eye"></i> Detail Proyek</span>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <span class="project-tag">MIKROTIK / CISCO</span>
+                    <h3>Desain Topologi Jaringan Gedung</h3>
+                    <p>Membangun simulasi jaringan Multi-VLAN antar lantai menggunakan Cisco Packet Tracer dan Router MikroTik RB750Gr3.</p>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="project-card">
+                <div class="project-img-box">
+                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80" alt="Server Rack Datacenter">
+                    <div class="project-overlay">
+                        <span class="cyber-btn btn-cyan"><i class="fa-solid fa-eye"></i> Detail Proyek</span>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <span class="project-tag">LINUX DEBIAN</span>
+                    <h3>Deploy Web & DNS Server Enterprise</h3>
+                    <p>Membangun server lokal berbasis Debian 11 Bullseye lengkap dengan SSL Certificate, Domain Name System, dan Database MySQL.</p>
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="project-card">
+                <div class="project-img-box">
+                    <img src="https://images.unsplash.com/photo-1520869578617-557561d7b114?auto=format&fit=crop&w=600&q=80" alt="Fiber Optic Splicing">
+                    <div class="project-overlay">
+                        <span class="cyber-btn btn-cyan"><i class="fa-solid fa-eye"></i> Detail Proyek</span>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <span class="project-tag">FIBER OPTIC</span>
+                    <h3>Instalasi Jaringan FTTH & Splicing</h3>
+                    <p>Praktik penyambungan inti kabel Fiber Optic menggunakan Fusion Splicer dan pengujian redaman sinyal menggunakan OPM (Optical Power Meter).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT & SOCIAL MEDIA SECTION -->
+    <section id="contact">
+        <div class="section-header">
+            <h2>HUBUNGI <span>& SOSIAL MEDIA</span></h2>
+            <p>Mari terhubung untuk kolaborasi proyek jaringan, konsultasi teknis, atau peluang kerja.</p>
+            <div class="cyber-line"></div>
+        </div>
+
+        <div class="contact-wrapper">
+            <!-- Personal Contact Info -->
+            <div class="contact-cards-container">
+                <a href="https://wa.me/6282213184742" target="_blank" class="contact-info-card">
+                    <div class="contact-icon">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </div>
+                    <div>
+                        <small style="color: var(--text-sub);">Telepon / WhatsApp</small>
+                        <h4 style="font-size: 1.2rem; font-family:'Orbitron';">082213184742</h4>
+                    </div>
+                </a>
+
+                <a href="mailto:ekigmteng884@gmail.com" class="contact-info-card">
+                    <div class="contact-icon">
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+                    <div>
+                        <small style="color: var(--text-sub);">Email Resmi</small>
+                        <h4 style="font-size: 1.1rem; font-family:'Orbitron';">ekigmteng884@gmail.com</h4>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Social Media Buttons -->
+            <div class="socials-grid-box">
+                <!-- TikTok -->
+                <a href="https://www.tiktok.com/@ekyorangbogor?_r=1&_t=ZS-98EZD4VlpdS" target="_blank" rel="noopener noreferrer" class="social-link-btn tiktok">
+                    <i class="fa-brands fa-tiktok"></i>
+                    <span>TikTok</span>
+                </a>
+
+                <!-- Instagram -->
+                <a href="https://www.instagram.com/m.fikryrezkitama?igsh=aGY4eHd1dmxodGJs" target="_blank" rel="noopener noreferrer" class="social-link-btn instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                    <span>Instagram</span>
+                </a>
+
+                <!-- YouTube -->
+                <a href="https://youtube.com/@m.fikry11eki69?si=Kq1rEqnSVHrS__9K" target="_blank" rel="noopener noreferrer" class="social-link-btn youtube">
+                    <i class="fa-brands fa-youtube"></i>
+                    <span>YouTube</span>
+                </a>
+
+                <!-- Facebook -->
+                <a href="https://www.facebook.com/share/1Bsty4e822/" target="_blank" rel="noopener noreferrer" class="social-link-btn facebook">
+                    <i class="fa-brands fa-facebook-f"></i>
+                    <span>Facebook</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 <span>MUHAMMAD FIKRY R.</span> - Teknik Komputer & Jaringan. Designed with Cyberpunk Neon Aesthetic.</p>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        /* === BACKGROUND PARTICLE CANVAS ANIMATION === */
+        const canvas = document.getElementById('bgCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const particles = [];
+        const particleCount = 60;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 1.2;
+                this.vy = (Math.random() - 0.5) * 1.2;
+                this.radius = Math.random() * 2 + 1;
+                this.color = Math.random() > 0.5 ? '#00f3ff' : '#ff0055';
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = this.color;
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw network lines between nodes
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 130) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(0, 243, 255, ${1 - dist / 130 * 0.8})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateCanvas);
+        }
+        animateCanvas();
+
+        /* === TYPEWRITER ANIMATION EFFECT === */
+        const phrases = [
+            "Network Administrator",
+            "Cisco & MikroTik Specialist",
+            "Server System Engineer",
+            "Hardware & Cabling Tech"
+        ];
+        let pIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typewriterEl = document.getElementById('typewriter');
+
+        function typeLoop() {
+            const currentPhrase = phrases[pIndex];
+            
+            if (isDeleting) {
+                typewriterEl.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typewriterEl.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 40 : 90;
+
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                typeSpeed = 2000; // Pause at end
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                pIndex = (pIndex + 1) % phrases.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(typeLoop, typeSpeed);
+        }
+        typeLoop();
+
+        /* === PHOTO EDITOR & UPLOADER LOGIC === */
+        const photoInput = document.getElementById('photoInput');
+        const mainProfileImg = document.getElementById('mainProfileImg');
+        const editorPreviewImg = document.getElementById('editorPreviewImg');
+        const previewImgWrapper = document.getElementById('previewImgWrapper');
+        const previewGlow = document.getElementById('previewGlow');
+        const heroImgContainer = document.getElementById('heroImgContainer');
+        const heroNeonRing = document.getElementById('heroNeonRing');
+
+        // Sliders
+        const sliderBrightness = document.getElementById('sliderBrightness');
+        const sliderContrast = document.getElementById('sliderContrast');
+        const sliderSaturate = document.getElementById('sliderSaturate');
+        const sliderZoom = document.getElementById('sliderZoom');
+
+        // Value Displays
+        const valBrightness = document.getElementById('valBrightness');
+        const valContrast = document.getElementById('valContrast');
+        const valSaturate = document.getElementById('valSaturate');
+        const valZoom = document.getElementById('valZoom');
+
+        function triggerPhotoUpload() {
+            photoInput.click();
+        }
+
+        photoInput.addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    mainProfileImg.src = event.target.result;
+                    editorPreviewImg.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function applyPhotoFilters() {
+            const b = sliderBrightness.value;
+            const c = sliderContrast.value;
+            const s = sliderSaturate.value;
+            const z = sliderZoom.value;
+
+            valBrightness.textContent = b + '%';
+            valContrast.textContent = c + '%';
+            valSaturate.textContent = s + '%';
+            valZoom.textContent = z + '%';
+
+            const filterCSS = `brightness(${b}%) contrast(${c}%) saturate(${s}%)`;
+            const transformCSS = `scale(${z / 100})`;
+
+            // Apply to editor preview
+            editorPreviewImg.style.filter = filterCSS;
+            editorPreviewImg.style.transform = transformCSS;
+
+            // Apply to main profile image in hero section
+            mainProfileImg.style.filter = filterCSS;
+            mainProfileImg.style.transform = transformCSS;
+        }
+
+        sliderBrightness.addEventListener('input', applyPhotoFilters);
+        sliderContrast.addEventListener('input', applyPhotoFilters);
+        sliderSaturate.addEventListener('input', applyPhotoFilters);
+        sliderZoom.addEventListener('input', applyPhotoFilters);
+
+        function setNeonColor(colorHex) {
+            // Update CSS Variable & Borders
+            document.documentElement.style.setProperty('--glow-color', colorHex);
+            
+            previewImgWrapper.style.borderColor = colorHex;
+            previewGlow.style.background = colorHex;
+            
+            heroImgContainer.style.borderColor = colorHex;
+            heroImgContainer.style.boxShadow = `0 0 30px ${colorHex}`;
+            
+            heroNeonRing.style.background = `conic-gradient(from 0deg, ${colorHex}, var(--neon-magenta), var(--neon-purple), ${colorHex})`;
+
+            // Highlight color dot
+            document.querySelectorAll('.color-dot').forEach(dot => {
+                if (dot.style.color === colorHex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        function resetFilters() {
+            sliderBrightness.value = 100;
+            sliderContrast.value = 100;
+            sliderSaturate.value = 100;
+            sliderZoom.value = 100;
+            setNeonColor('#00f3ff');
+            applyPhotoFilters();
+        }
+
+        /* === NAVBAR ACTIVE LINK ON SCROLL === */
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                if (pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
