@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio - MUHAMMAD FIKRY R.</title>
+    <!-- Font Awesome untuk Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #0a0a12;
+            --card-bg: #121220;
+            --primary-neon: #00f3ff;
+            --secondary-neon: #ff007f;
+            --text-color: #ffffff;
+            --text-dim: #a0a0c0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- Header & Nav --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background: rgba(10, 10, 18, 0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-neon);
+            text-shadow: 0 0 10px var(--primary-neon);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-neon);
+            text-shadow: 0 0 8px var(--secondary-neon);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 120px 8% 50px;
+            gap: 40px;
+            flex-wrap: wrap-reverse;
+        }
+
+        .hero-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .hero-text h3 {
+            color: var(--secondary-neon);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .hero-text h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .hero-text h2 {
+            font-size: 1.5rem;
+            color: var(--primary-neon);
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px var(--primary-neon);
+        }
+
+        .hero-text p {
+            color: var(--text-dim);
+            margin-bottom: 30px;
+            max-width: 500px;
+        }
+
+        /* --- Custom Photo Upload Frame --- */
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 300px;
+        }
+
+        .photo-container {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            padding: 8px;
+            background: linear-gradient(45deg, var(--primary-neon), var(--secondary-neon));
+            box-shadow: 0 0 25px var(--primary-neon), 0 0 50px var(--secondary-neon);
+            animation: pulseGlow 3s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 20px var(--primary-neon), 0 0 40px var(--secondary-neon); }
+            100% { box-shadow: 0 0 35px var(--secondary-neon), 0 0 70px var(--primary-neon); }
+        }
+
+        .photo-wrapper {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+            background: #1a1a2e;
+        }
+
+        .photo-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .upload-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: 0.3s;
+            cursor: pointer;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .photo-wrapper:hover .upload-overlay {
+            opacity: 1;
+        }
+
+        .upload-overlay i {
+            font-size: 2rem;
+            margin-bottom: 5px;
+            color: var(--primary-neon);
+        }
+
+        #file-input {
+            display: none;
+        }
+
+        /* --- Cards & Skills --- */
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+            color: var(--primary-neon);
+            text-shadow: 0 0 10px var(--primary-neon);
+        }
+
+        .skills-section {
+            padding: 80px 8%;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid rgba(0, 243, 255, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            transition: 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--secondary-neon);
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.3);
+        }
+
+        .card i {
+            font-size: 2.5rem;
+            color: var(--primary-neon);
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        /* --- Social Buttons --- */
+        .social-btn-container {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .btn-neon {
+            background: transparent;
+            color: var(--primary-neon);
+            border-color: var(--primary-neon);
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+        }
+
+        .btn-neon:hover {
+            background: var(--primary-neon);
+            color: #000;
+            box-shadow: 0 0 20px var(--primary-neon);
+        }
+
+        .btn-tiktok {
+            background: transparent;
+            color: var(--secondary-neon);
+            border-color: var(--secondary-neon);
+        }
+
+        .btn-tiktok:hover {
+            background: var(--secondary-neon);
+            color: #fff;
+            box-shadow: 0 0 20px var(--secondary-neon);
+        }
+
+        /* --- Contact Section --- */
+        .contact-section {
+            padding: 80px 8%;
+            background: rgba(18, 18, 32, 0.5);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: var(--card-bg);
+            padding: 15px 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-neon);
+        }
+
+        .contact-item i {
+            font-size: 1.5rem;
+            color: var(--primary-neon);
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 768px) {
+            .hero {
+                text-align: center;
+                justify-content: center;
+            }
+            .hero-text p {
+                margin: 0 auto 30px;
+            }
+            .social-btn-container {
+                justify-content: center;
+            }
+            .nav-links {
+                display: none; /* Simplifikasi menu mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navbar -->
+    <header>
+        <div class="logo">&lt;FIKRY.TKJ/&gt;</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#skills">Keahlian</a></li>
+            <li><a href="#contact">Kontak</a></li>
+        </ul>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-text">
+            <h3>Hallo, Saya</h3>
+            <h1>MUHAMMAD FIKRY R.</h1>
+            <h2>Teknik Komputer & Jaringan</h2>
+            <p>Siswa / Praktisi TKJ yang berfokus pada Pengelolaan Jaringan (Networking), Mikrotik, Server, Hardware Komputer, dan Troubleshooting System.</p>
+            
+            <div class="social-btn-container">
+                <a href="https://wa.me/6282213184742" target="_blank" class="btn btn-neon">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                </a>
+                <a href="https://www.instagram.com/m.fikryrezkitama" target="_blank" class="btn btn-neon">
+                    <i class="fab fa-instagram"></i> Instagram
+                </a>
+                <a href="https://www.tiktok.com/@ekyorangbogor" target="_blank" class="btn btn-tiktok">
+                    <i class="fab fa-tiktok"></i> TikTok
+                </a>
+            </div>
+        </div>
+
+        <!-- Frame Foto Neon (Bisa di-edit/upload) -->
+        <div class="hero-image">
+            <div class="photo-container">
+                <div class="photo-wrapper" onclick="document.getElementById('file-input').click();">
+                    <!-- Foto Default Placeholder -->
+                    <img id="profile-img" src="https://via.placeholder.com/300/121220/00f3ff?text=Klik+Ganti+Foto" alt="Foto Profile">
+                    <div class="upload-overlay">
+                        <i class="fas fa-camera"></i>
+                        <span>Ganti Foto</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Input file tersembunyi -->
+            <input type="file" id="file-input" accept="image/*" onchange="previewImage(event)">
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills-section" id="skills">
+        <h2 class="section-title">Keahlian TKJ</h2>
+        <div class="grid-container">
+            <div class="card">
+                <i class="fas fa-network-wired"></i>
+                <h3>Computer Networking</h3>
+                <p>Konfigurasi LAN, WAN, Routing, Switching, Subnetting, dan manajemen bandwidth.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-server"></i>
+                <h3>Server & System Admin</h3>
+                <p>Instalasi dan Konfigurasi Linux Server, Windows Server, DHCP, DNS, dan Web Server.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-microchip"></i>
+                <h3>MikroTik & Cisco</h3>
+                <p>Pengaturan RouterBoard MikroTik, Firewall, Hotspot, VPN, dan dasar-dasar Cisco CCNA.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-tools"></i>
+                <h3>Hardware & Repair</h3>
+                <p>Perakitan Komputer (PC), Maintenance, Troubleshooting Hardware, dan Crimping kabel UTP.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <h2 class="section-title">Hubungi Saya</h2>
+        <div class="contact-info">
+            <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <div>
+                    <p style="font-size: 0.8rem; color: var(--text-dim);">Email</p>
+                    <p>ekigamteng884@gmail.com</p>
+                </div>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-phone"></i>
+                <div>
+                    <p style="font-size: 0.8rem; color: var(--text-dim);">No. Telepon / WA</p>
+                    <p>082213184742</p>
+                </div>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                    <p style="font-size: 0.8rem; color: var(--text-dim);">Lokasi</p>
+                    <p>Bogor, Indonesia</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 MUHAMMAD FIKRY R. All Rights Reserved.</p>
+    </footer>
+
+    <!-- JavaScript untuk ganti foto secara instan -->
+    <script>
+        function previewImage(event) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                const output = document.getElementById('profile-img');
+                output.src = reader.result;
+            }
+            if(event.target.files[0]) {
+                reader.readAsDataURL(event.target.files[0]);
+            }
+        }
+    </script>
+</body>
+</html>
